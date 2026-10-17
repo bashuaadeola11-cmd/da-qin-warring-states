@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 14% 7%;
+    --foreground: 42 32% 89%;
+    --card: 40 12% 10%;
+    --card-foreground: 42 32% 89%;
+    --popover: 40 12% 10%;
+    --popover-foreground: 42 32% 89%;
+    --primary: 9 64% 44%;
+    --primary-foreground: 42 40% 93%;
+    --secondary: 38 14% 16%;
+    --secondary-foreground: 42 24% 84%;
+    --muted: 38 10% 15%;
+    --muted-foreground: 40 12% 62%;
+    --accent: 36 42% 46%;
+    --accent-foreground: 40 14% 8%;
+    --destructive: 4 72% 46%;
+    --destructive-foreground: 42 40% 93%;
+    --border: 38 10% 23%;
+    --input: 38 10% 23%;
+    --ring: 9 64% 44%;
+    --radius: 0.375rem;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: "Oswald", "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.font-brush {
+  font-family: "Ma Shan Zheng", "Kaiti SC", "STKaiti", "KaiTi", serif;
+}
+
+.font-body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+
+.hud-shadow {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
+
+/* vertical brush title */
+.writing-vertical {
+  writing-mode: vertical-rl;
+  letter-spacing: 0.18em;
+}
+
+/* scanline texture overlay for menus */
+.ink-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.12) 0px,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+}
+
+/* hitmarker */
+@keyframes hitmark-pop {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.25) rotate(45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotate(45deg);
+  }
+}
+.hitmarker {
+  animation: hitmark-pop 0.28s ease-out forwards;
+}
+
+/* damage vignette pulse */
+@keyframes damage-flash {
+  0% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.damage-flash {
+  animation: damage-flash 0.5s ease-out forwards;
+}
+
+/* low health heartbeat */
+@keyframes lowhp-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+.lowhp-pulse {
+  animation: lowhp-pulse 1.6s ease-in-out infinite;
+}
+
+/* kill feed entry */
+@keyframes feed-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.feed-in {
+  animation: feed-in 0.22s ease-out;
+}
+
+/* banner wave text intro */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise-in {
+  animation: rise-in 0.4s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hitmarker,
+  .damage-flash,
+  .feed-in,
+  .rise-in,
+  .lowhp-pulse {
+    animation-duration: 0.01s;
+    animation-iteration-count: 1;
+  }
+}
